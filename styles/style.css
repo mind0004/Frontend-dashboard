@@ -13,8 +13,10 @@ body {
   padding: 0;
   width: 100vw;
   max-width: 100%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
   position: relative;
+  color: #4d4d4d;
 }
 
 main {
@@ -63,11 +65,37 @@ nav {
   width: 100%;
 }
 
+.box-header {
+  font-size: 22px;
+  margin-top: 20px;
+}
+
 /* Top Box
    ========================================================================== */
 #top-box {
   height: var(--top-box-height);
   grid-column: span 6;
+}
+
+#top-box #top-box-wrapper {
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: var(--grid-space);
+  width: calc(
+    100vw - var(--left-nav-width) - var(--grid-space) - var(--grid-space)
+  );
+}
+
+#top-box #top-box-wrapper > div {
+  grid-column: span 2;
+  text-align: center;
+}
+
+#top-box .queue p,
+#top-box .serving p {
+  margin-top: 10px;
+  font-size: 60px;
 }
 
 /* Keg level
