@@ -1,0 +1,111 @@
+/* ==========================================================================
+   General
+   ========================================================================== */
+
+:root {
+  --left-nav-width: 160px;
+  --grid-space: 20px;
+  --top-box-height: 180px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  max-width: 100%;
+  font-family: sans-serif;
+  position: relative;
+}
+
+main {
+  position: relative;
+  background: #f7f7f7;
+  min-height: 100vh;
+  width: calc(100vw - var(--left-nav-width));
+  max-width: calc(100% - var(--left-nav-width));
+  margin-left: var(--left-nav-width);
+}
+
+/* ==========================================================================
+   Left Navigation Sidebar
+   ========================================================================== */
+nav {
+  position: relative;
+  float: left;
+  width: var(--left-nav-width);
+  min-height: 100vh;
+  height: 100%;
+  background: #222a47;
+}
+
+/* ==========================================================================
+   Overview
+   ========================================================================== */
+
+#overview {
+  width: calc(
+    100vw - var(--left-nav-width) - var(--grid-space) - var(--grid-space)
+  );
+  overflow-x: hidden;
+  margin: 0px auto;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: var(--grid-space);
+  min-height: 300px;
+}
+
+.boxes {
+  background: white;
+  border-radius: 15px;
+  /*grid-column: 3 / 6;*/
+  grid-column: span 3;
+  width: 100%;
+}
+
+/* Top Box
+   ========================================================================== */
+#top-box {
+  height: var(--top-box-height);
+  grid-column: span 6;
+}
+
+/* Keg level
+   ========================================================================== */
+#keg-level {
+  height: calc(
+    100vh - var(--grid-space) - var(--grid-space) - var(--grid-space) -
+      var(--top-box-height)
+  );
+}
+
+/* Storage
+   ========================================================================== */
+#storage {
+  height: calc(
+    100vh - var(--grid-space) - var(--grid-space) - var(--grid-space) -
+      var(--top-box-height)
+  );
+}
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+/* Extra small devices (portrait phones, less than 576px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
