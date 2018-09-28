@@ -77,6 +77,11 @@ nav {
   grid-column: span 6;
 }
 
+.box-header {
+  font-size: 22px;
+  margin-top: 30px;
+}
+
 #top-box #top-box-wrapper {
   margin: 0px auto;
   display: grid;
