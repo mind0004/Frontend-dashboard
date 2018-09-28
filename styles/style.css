@@ -40,6 +40,51 @@ nav {
   background: #222a47;
 }
 
+nav p {
+  color: #f7f7f7;
+}
+
+#timeNav {
+  margin: 0 auto;
+  margin-top: 1vw;
+  color: white;
+  text-align: center;
+}
+
+#overviewNav,
+#economicsNav,
+#employeesNav,
+#profile {
+  margin: 0 auto;
+  margin-top: 2vw;
+  width: 35%;
+}
+
+#profilePic {
+  display: block;
+  margin: 0 auto;
+  margin-top: 17vw;
+  width: 100%;
+}
+
+#settings {
+  margin-left: 0.5vw;
+  margin-top: 0.5vw;
+  text-align: center;
+  float: left;
+}
+
+#settingspic {
+  margin: 0 auto;
+  width: 100%;
+}
+
+#logout {
+  margin-top: 4vw;
+  margin-right: 0.5vw;
+  float: right;
+}
+
 /* ==========================================================================
    Overview
    ========================================================================== */
