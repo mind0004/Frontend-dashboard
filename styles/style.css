@@ -32,57 +32,96 @@ main {
    Left Navigation Sidebar
    ========================================================================== */
 nav {
-  position: relative;
+  position: fixed;
   float: left;
   width: var(--left-nav-width);
   min-height: 100vh;
   height: 100%;
   background: #222a47;
+  color: #919191;
+  font-size: 14px;
 }
 
-nav p {
-  color: #f7f7f7;
-}
-
-#timeNav {
+nav #timeNav {
   margin: 0 auto;
   margin-top: 1vw;
-  color: white;
+  color: #e9e9e9;
   text-align: center;
 }
 
-#overviewNav,
-#economicsNav,
-#employeesNav,
-#profile {
+nav #overviewNav,
+nav #economicsNav,
+nav #employeesNav,
+nav #profile {
   margin: 0 auto;
   margin-top: 2vw;
-  width: 35%;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 60px;
 }
 
-#profilePic {
+nav .nav-menu:hover .cls-1,
+nav .nav-menu:hover rect,
+nav .nav-menu:hover circle,
+nav .nav-menu:hover path {
+  fill: white;
+  transition: fill 0.3s;
+}
+
+nav .nav-icon {
+  height: 40px;
+  margin: 0 auto;
+
+  stroke: white;
+}
+
+nav #bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+}
+
+nav #bottom-nav p {
+  font-size: 12px;
+}
+
+nav #profile {
+  text-align: center;
+  width: 35%;
+  margin-top: 20px;
+}
+
+nav #profile p {
+  color: #e9e9e9;
+}
+
+nav #profilePic {
   display: block;
   margin: 0 auto;
-  margin-top: 17vw;
   width: 100%;
 }
 
-#settings {
-  margin-left: 0.5vw;
-  margin-top: 0.5vw;
+nav #settings {
+  margin-left: 10px;
+  margin-top: 40px;
   text-align: center;
   float: left;
 }
 
-#settingspic {
+nav #settings img {
   margin: 0 auto;
-  width: 100%;
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
-#logout {
-  margin-top: 4vw;
-  margin-right: 0.5vw;
+nav #logout p {
+  margin-right: 10px;
+  margin-top: 45px;
   float: right;
+  color: #919191;
 }
 
 /* ==========================================================================

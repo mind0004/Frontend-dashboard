@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/styles/css-reset.css">
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://kea-alt-del.dk/2018/front/foobar.js" type="text/javascript"></script>
+    <script src="/scripts/svg-inject.min.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
     <title>FooBar | Dashboard</title>
 </head>
@@ -16,37 +16,40 @@
     <!-- LEFT NAVIGATION BAR -->
     <nav>
         <div id="timeNav">
-            <p>18:02:34</p>
+            <p>&nbsp;</p>
         </div>
 
-        <div id="overviewNav">
-            <img src="img/bar_icon.svg">
+        <div id="overviewNav" class="nav-menu">
+            <img class="nav-icon" src="/assets/icons/bar_icon.svg" onload="SVGInject(this)">
             <p>Overview</p>
         </div>
 
-        <div id="economicsNav">
-            <h2>$</h2>
+        <div id="economicsNav" class="nav-menu">
+            <img class="nav-icon" src="/assets/icons/money.svg" onload="SVGInject(this)">
             <p>Economics</p>
         </div>
 
-        <div id="employeesNav">
-            <img src="img/bar_icon.svg">
+        <div id="employeesNav" class="nav-menu">
+            <img class="nav-icon" src="/assets/icons/employees.svg" onload="SVGInject(this)">
             <p>Employees</p>
         </div>
 
-        <div id="profile">
-            <img id="profilePic" src="img/profilepic.png">
-            <p>Johnny</p>
+        <div id="bottom-nav">
+            <div id="profile">
+                <img id="profilePic" src="/assets/img/profilepic.png">
+                <p>Johnny</p>
+            </div>
+
+            <div id="settings">
+                <img id="settingPic" src="/assets/icons/settings.svg">
+            </div>
+
+            <div id="logout">
+                <p>Log out</p>
+            </div>
         </div>
 
-        <div id="settings">
-            <img id="settingPic" src="img/bar_icon.svg">
-            <p>Settings</p>
-        </div>
 
-        <div id="logout">
-            <p>Log out</p>
-        </div>
     </nav>
 
     <!-- MAIN CONTENT IN CENTER -->
@@ -79,6 +82,7 @@
         </div>
     </main>
 
+    <script src="https://kea-alt-del.dk/2018/front/foobar.js" type="text/javascript"></script>
     <script src="/scripts/script.js" type="text/javascript"></script>
 </body>
 

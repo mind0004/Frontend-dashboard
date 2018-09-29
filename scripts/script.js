@@ -2,6 +2,11 @@
 /* ==========================================================================
    General
    ========================================================================== */
+
+//Nav
+const timeNav = document.querySelector("#timeNav p");
+
+//Top-box
 const queueP = document.querySelector("#top-box .queue p");
 const servingP = document.querySelector("#top-box .serving p");
 const servingNumber = document.querySelector("#top-box .serving p");
@@ -15,7 +20,7 @@ let data, update, updatePerformance;
 let perf = {
   avgT: 10000,
   avgPerf: 15000,
-  timePerClient: [],
+  timePerClient: [15000],
   currentS: [],
   previousS: [],
   order: {}
@@ -26,6 +31,14 @@ let perf = {
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", init);
 function init() {
+  //Update the time in the navbar every 1s
+  setInterval(() => {
+    const date = new Date();
+    timeNav.textContent =
+      date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  }, 1000);
+
+  //Get data and console log it
   updateData();
   console.log(data);
 
@@ -132,7 +145,15 @@ function calcPerf() {
   console.log("======");
 
   */
+  //Add this update rounds clients to be used for next round
   perf.previousS = perf.currentS.slice();
+
+  //If there are more than 20 elements in the timePerClient array, remove the first ones until true
+  if (perf.timePerClient.length > 20) {
+    for (let i = 0; i > perf.timePerClient.length - 20; i++) {
+      perf.timePerClient.shift();
+    }
+  }
 }
 
 /* ==========================================================================
