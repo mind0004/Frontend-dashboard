@@ -3,19 +3,20 @@
    General
    ========================================================================== */
 
-//Nav
+//*** Nav
 const timeNav = document.querySelector("#timeNav p");
 
-//Top-box
+//*** Top-box
 const queueP = document.querySelector("#top-box .queue p");
 const servingP = document.querySelector("#top-box .serving p");
 const servingNumber = document.querySelector("#top-box .serving p");
 const perfNumber = document.querySelector("#top-box .performance p");
+const perfChartDOM = document.querySelector("#perf-chart").getContext("2d");
 
 const updateInterval = 1000; //update data every 1s;
 const updatePerformanceInterval = 15000; //update performance every 15s
 
-let data, update, updatePerformance;
+let data, update, updatePerformance, perfChart;
 //perf is used to calculate performance
 let perf = {
   avgT: 10000,
@@ -54,6 +55,7 @@ function init() {
   }, updatePerformanceInterval);
 
   displayData();
+  displayPerfChart();
 }
 
 /* ==========================================================================
@@ -178,5 +180,55 @@ function displayPerf() {
   } else {
     //display performance
     perfNumber.textContent = perf.avgPerf + "%";
+  }
+  updatePerfChart();
+}
+
+function displayPerfChart() {
+  perfChart = new Chart(perfChartDOM, {
+    // The type of chart we want to create
+    type: "doughnut",
+
+    // The data for our dataset
+    data: {
+      datasets: [
+        {
+          data: [50, 50],
+          backgroundColor: ["#39B54A"],
+          borderWidth: [0, 0]
+        }
+      ]
+    },
+
+    // Configuration options go here
+    options: {
+      legend: false,
+      rotation: Math.PI,
+      circumference: Math.PI
+    }
+  });
+}
+
+function updatePerfChart() {
+  if (isNaN(perf.avgPerf)) {
+    //keep previous chart
+  } else {
+    //update chart
+    let status;
+    if (perf.avgPerf > 60) {
+      status = "good";
+    } else if (perf.avgPerf < 30) {
+      status = "bad";
+    } else if (perf.avgPerf > 30 && perf.avgPerf < 60) {
+      status = "okay";
+    }
+    const color = {
+      bad: "#ED1C24",
+      okay: "#F7931E",
+      good: "#39B54A"
+    }[status];
+    perfChart.data.datasets[0].data = [perf.avgPerf, 100 - perf.avgPerf];
+    perfChart.data.datasets[0].backgroundColor = [color];
+    perfChart.update();
   }
 }
