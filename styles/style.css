@@ -64,15 +64,25 @@ nav .nav-menu:hover .cls-1,
 nav .nav-menu:hover rect,
 nav .nav-menu:hover circle,
 nav .nav-menu:hover path {
-  fill: white;
+  fill: #e9e9e9;
   transition: fill 0.3s;
+}
+
+nav .active .cls-1,
+nav .active rect,
+nav .active circle,
+nav .active path {
+  fill: #e9e9e9;
+}
+
+nav .active p {
+  color: #e9e9e9;
 }
 
 nav .nav-icon {
   height: 40px;
   margin: 0 auto;
-
-  stroke: white;
+  stroke: #e9e9e9;
 }
 
 nav #bottom-nav {
@@ -161,7 +171,7 @@ nav #logout p {
   grid-column: span 6;
 }
 
-.box-header {
+#top-box .box-header {
   font-size: 22px;
   margin-top: 30px;
 }
@@ -185,9 +195,25 @@ nav #logout p {
 #top-box .serving p {
   margin-top: 10px;
   font-size: 60px;
+  display: inline-block;
 }
 
-#top-box .performance {
+#top-box img {
+  width: 30px;
+  position: absolute;
+  top: 24px;
+  left: 130px;
+  right: 0px;
+  margin: 0 auto;
+}
+#top-box .serving img {
+  width: 25px;
+  top: 22px;
+}
+
+#top-box .performance,
+#top-box .queue,
+#top-box .serving {
   position: relative;
 }
 
