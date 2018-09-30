@@ -252,7 +252,38 @@ nav #logout p {
 /* ==========================================================================
    Employee
    ========================================================================== */
-#employee {
+
+#employee-grid {
+  width: calc(
+    100vw - var(--left-nav-width) - var(--grid-space) - var(--grid-space)
+  );
+  overflow-x: hidden;
+  margin: 0px auto;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: var(--grid-space);
+  min-height: 210px;
+}
+
+#employee h2 {
+  padding: 5px;
+}
+
+#employee-grid .boxes {
+  background: white;
+  border-radius: 15px;
+  grid-column: span 2;
+  width: 100%;
+  text-align: center;
+}
+
+#employee-grid .boxes p {
+  padding: 5px;
+}
+
+#employee img {
+  width: 10vw;
 }
 
 /* ==========================================================================
