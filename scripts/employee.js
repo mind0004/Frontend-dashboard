@@ -2,10 +2,15 @@
 
 const name = document.querySelectorAll(".name");
 const status = document.querySelectorAll(".status");
+const nav = document.querySelector("nav");
 
 const updateInterval = 1000;
 
 let data, update;
+
+//*** Mobile Menu (Burger Menu)
+const burgerMenu = document.querySelector("#burger-menu");
+let mobileMenuVisible = false;
 
 /* ==========================================================================
    Initilaize
@@ -29,6 +34,8 @@ function init() {
     displayData();
   }, updateInterval);
   displayData();
+
+  burgerMenu.addEventListener("click", toggleMobileMenu);
 }
 
 function updateData() {
@@ -47,4 +54,18 @@ function displayData() {
   status.forEach((statusA, i) => {
     statusA.textContent = data.bartenders[i].status;
   });
+}
+
+/* ==========================================================================
+   Toggle Mobile Menu
+   ========================================================================== */
+function toggleMobileMenu() {
+  if (mobileMenuVisible) {
+    //close menu
+    nav.style.removeProperty("top");
+  } else {
+    //open menu
+    nav.style.top = "0px";
+  }
+  mobileMenuVisible = !mobileMenuVisible;
 }
