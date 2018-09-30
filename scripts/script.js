@@ -15,13 +15,26 @@ const perfChartDOM = document.querySelector("#perf-chart").getContext("2d");
 const kegLevelChartDOM = document
   .querySelector("#keg-level-chart")
   .getContext("2d");
+const storageLevelChartDOM = document
+  .querySelector("#storage-level-chart")
+  .getContext("2d");
 
 const updateInterval = 1000; //update data every 1s;
 const updatePerformanceInterval = 15000; //update performance every 15s
 const updateKegLevelInterval = 1000; //update keg level every 1s
+const updateStorageLevelInterval = 1000; //update storage level every 1s
 
-let data, update, updatePerformance, perfChart, kegLevelChart, updateKegLevel;
+let data,
+  update,
+  updatePerformance,
+  perfChart,
+  kegLevelChart,
+  updateKegLevel,
+  storageLevelChart,
+  updateStorageLevel;
+
 let kegLevel = [];
+let storageLevel = [];
 
 //perf is used to calculate performance
 let perf = {
@@ -64,11 +77,18 @@ function init() {
     updateKegLevelData();
   }, updateKegLevelInterval);
 
+  updateStorageLevel = setInterval(() => {
+    updateStorageLevelData();
+  }, updateStorageLevelInterval);
+
   displayData();
   displayPerfChart();
   displayKegLevelChart();
   updateKegLevelData();
   updateKegLevelChart();
+  displayStorageLevelChart();
+  updateStorageLevelData();
+  updateStorageLevelChart();
 }
 
 /* ==========================================================================
@@ -244,6 +264,10 @@ function updatePerfChart() {
   }
 }
 
+/* ==========================================================================
+   display keg level chart
+   ========================================================================== */
+
 function displayKegLevelChart() {
   kegLevelChart = new Chart(kegLevelChartDOM, {
     type: "bar",
@@ -320,7 +344,7 @@ function updateKegLevelData() {
     kegLevel.push(beer);
   });
 
-  console.log(kegLevel);
+  //console.log(kegLevel);
   updateKegLevelChart();
 }
 
@@ -352,4 +376,118 @@ function updateKegLevelChart() {
   });
 
   kegLevelChart.update();
+}
+
+/* ==========================================================================
+   display storage level chart
+   ========================================================================== */
+
+function displayStorageLevelChart() {
+  storageLevelChart = new Chart(storageLevelChartDOM, {
+    type: "bar",
+    // The data for our dataset
+    data: {
+      labels: [
+        "ELH",
+        "FTA",
+        "HBL",
+        "GTH",
+        "HEA",
+        "MIT",
+        "R26",
+        "RCH",
+        "SLR",
+        "SMP"
+      ],
+      datasets: [
+        {
+          label: "Amount of kegs in storage",
+          backgroundColor: ["#39B54A"],
+
+          data: [0, 10, 5, 2, 20, 30, 45]
+        }
+      ]
+    },
+
+    // Configuration options go here
+    options: {
+      legend: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 20,
+              beginAtZero: true,
+              min: 0,
+              max: 10,
+              stepSize: 1
+            }
+          }
+        ]
+      }
+    }
+  });
+}
+
+function updateStorageLevelData() {
+  storageLevel = [];
+  data.storage.forEach(storage => {
+    let beerVar = storage.name.toLowerCase().replace(/ /g, "");
+    //console.log(beerVar);
+    let short = {
+      elhefe: "ELH",
+      fairytaleale: "FTA",
+      hollabacklager: "HBL",
+      githop: "GTH",
+      hoppilyeverafter: "HEA",
+      mowintime: "MIT",
+      row26: "R26",
+      ruinedchildhood: "RCH",
+      sleighride: "SLR",
+      steampunk: "SMP"
+    }[beerVar];
+    //console.log(short);
+
+    let beer = {
+      name: storage.name,
+      short: short,
+      level: storage.amount
+    };
+
+    storageLevel.push(beer);
+  });
+
+  //console.log(kegLevel);
+  updateStorageLevelChart();
+}
+
+function updateStorageLevelChart() {
+  storageLevelChart.data.labels = [];
+  storageLevelChart.data.datasets[0].data = [];
+  storageLevelChart.data.datasets[0].backgroundColor = [];
+
+  let status;
+
+  storageLevel.forEach(storage => {
+    if (storage.level > 6) {
+      status = "good";
+    } else if (storage.level < 2) {
+      status = "bad";
+    } else if (storage.level > 2 && storage.level < 6) {
+      status = "okay";
+    }
+
+    const color = {
+      bad: "#ED1C24",
+      okay: "#F7931E",
+      good: "#39B54A"
+    }[status];
+
+    storageLevelChart.data.labels.push(storage.short);
+    storageLevelChart.data.datasets[0].data.push(storage.level);
+    storageLevelChart.data.datasets[0].backgroundColor.push(color);
+  });
+
+  storageLevelChart.update();
 }
