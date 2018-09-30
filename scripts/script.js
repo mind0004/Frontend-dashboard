@@ -5,13 +5,16 @@
 
 //*** Nav
 const timeNav = document.querySelector("#timeNav p");
+const nav = document.querySelector("nav");
 
 //*** Top-box
 const queueP = document.querySelector("#top-box .queue p");
 const servingP = document.querySelector("#top-box .serving p");
 const servingNumber = document.querySelector("#top-box .serving p");
-const perfNumber = document.querySelector("#top-box .performance p");
+const perfNumber = document.querySelector("#top-box .performance .perf-value");
 const perfChartDOM = document.querySelector("#perf-chart").getContext("2d");
+
+//*** Storage and Keg level canvas
 const kegLevelChartDOM = document
   .querySelector("#keg-level-chart")
   .getContext("2d");
@@ -19,6 +22,19 @@ const storageLevelChartDOM = document
   .querySelector("#storage-level-chart")
   .getContext("2d");
 
+//*** Modal Window
+const modalButton = document.querySelectorAll(".display-modal-button");
+const modalWindow = document.querySelector("#modal");
+const modalH2 = document.querySelector("#modal h2");
+const modalP = document.querySelector("#modal p");
+const modalCloseButton = document.querySelector("#modal button");
+let modalVisible = false;
+
+//*** Mobile Menu (Burger Menu)
+const burgerMenu = document.querySelector("#burger-menu");
+let mobileMenuVisible = false;
+
+//*** Variables
 const updateInterval = 1000; //update data every 1s;
 const updatePerformanceInterval = 15000; //update performance every 15s
 const updateKegLevelInterval = 1000; //update keg level every 1s
@@ -54,8 +70,13 @@ function init() {
   //Update the time in the navbar every 1s
   setInterval(() => {
     const date = new Date();
-    timeNav.textContent =
-      date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    const hours =
+      date.getHours() > 10 ? date.getHours() : "0" + date.getHours();
+    const min =
+      date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+    const sec =
+      date.getSeconds() > 10 ? date.getSeconds() : "0" + date.getSeconds();
+    timeNav.textContent = hours + ":" + min + ":" + sec;
   }, 1000);
 
   //Get data and console log it
@@ -73,14 +94,17 @@ function init() {
     displayPerf();
   }, updatePerformanceInterval);
 
+  //Update Keg level data and update chart every x seconds
   updateKegLevel = setInterval(() => {
     updateKegLevelData();
   }, updateKegLevelInterval);
 
+  //Update Storage level data and update chart every x seconds
   updateStorageLevel = setInterval(() => {
     updateStorageLevelData();
   }, updateStorageLevelInterval);
 
+  //Run functions on page load
   displayData();
   displayPerfChart();
   displayKegLevelChart();
@@ -89,6 +113,15 @@ function init() {
   displayStorageLevelChart();
   updateStorageLevelData();
   updateStorageLevelChart();
+
+  //Add event listener to Modal Window
+  modalButton.forEach(btn => {
+    btn.addEventListener("click", toggleModalWindow);
+  });
+  modalCloseButton.addEventListener("click", toggleModalWindow);
+
+  //Add event listener burger menu
+  burgerMenu.addEventListener("click", toggleMobileMenu);
 }
 
 /* ==========================================================================
@@ -215,6 +248,9 @@ function displayPerf() {
   updatePerfChart();
 }
 
+/* ==========================================================================
+   Display Performance Chart
+   ========================================================================== */
 function displayPerfChart() {
   perfChart = new Chart(perfChartDOM, {
     // The type of chart we want to create
@@ -235,11 +271,15 @@ function displayPerfChart() {
     options: {
       legend: false,
       rotation: Math.PI,
-      circumference: Math.PI
+      circumference: Math.PI,
+      events: []
     }
   });
 }
 
+/* ==========================================================================
+   Update Performance Chart
+   ========================================================================== */
 function updatePerfChart() {
   if (isNaN(perf.avgPerf)) {
     //keep previous chart
@@ -265,9 +305,8 @@ function updatePerfChart() {
 }
 
 /* ==========================================================================
-   display keg level chart
+   Display keg level chart
    ========================================================================== */
-
 function displayKegLevelChart() {
   kegLevelChart = new Chart(kegLevelChartDOM, {
     type: "bar",
@@ -319,6 +358,9 @@ function displayKegLevelChart() {
   });
 }
 
+/* ==========================================================================
+   Update Keg Level Data
+   ========================================================================== */
 function updateKegLevelData() {
   kegLevel = [];
   data.taps.forEach(keg => {
@@ -351,6 +393,9 @@ function updateKegLevelData() {
   updateKegLevelChart();
 }
 
+/* ==========================================================================
+   Update Keg Level Chart
+   ========================================================================== */
 function updateKegLevelChart() {
   kegLevelChart.data.labels = [];
   kegLevelChart.data.datasets[0].data = [];
@@ -382,9 +427,8 @@ function updateKegLevelChart() {
 }
 
 /* ==========================================================================
-   display storage level chart
+   Display storage level chart
    ========================================================================== */
-
 function displayStorageLevelChart() {
   storageLevelChart = new Chart(storageLevelChartDOM, {
     type: "bar",
@@ -415,6 +459,8 @@ function displayStorageLevelChart() {
     // Configuration options go here
     options: {
       legend: false,
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {
@@ -433,6 +479,9 @@ function displayStorageLevelChart() {
   });
 }
 
+/* ==========================================================================
+   Update Storage Level Data
+   ========================================================================== */
 function updateStorageLevelData() {
   storageLevel = [];
   data.storage.forEach(storage => {
@@ -465,6 +514,9 @@ function updateStorageLevelData() {
   updateStorageLevelChart();
 }
 
+/* ==========================================================================
+   Update Storage Level Chart
+   ========================================================================== */
 function updateStorageLevelChart() {
   storageLevelChart.data.labels = [];
   storageLevelChart.data.datasets[0].data = [];
@@ -493,4 +545,54 @@ function updateStorageLevelChart() {
   });
 
   storageLevelChart.update();
+}
+
+/* ==========================================================================
+   Toggle Modal Window
+   ========================================================================== */
+function toggleModalWindow(e) {
+  if (modalVisible) {
+    //Close Modal Window
+    modalWindow.style.removeProperty("top");
+    console.log("Close modal");
+  } else {
+    //Open Modal Window
+    const type = e.target.dataset.type;
+    const text = {
+      keg: {
+        header: "KEG LEVEL",
+        body:
+          "Keg level displays the amount of beer left in a keg. The unit is in cl."
+      },
+      storage: {
+        header: "STORAGE LEVEL",
+        body: "Storage level displays the amount of kegs in the storage room."
+      },
+      perf: {
+        header: "PERFORMANCE",
+        body:
+          "The all around performance is calculated based on the needed time to serve the last 20 beers. An average time is calculated and compared to 10s/beer which would be considered 100%. All performance over 60% is considered as very good!"
+      }
+    }[type];
+
+    modalWindow.style.top = "0px";
+    modalH2.textContent = text.header;
+    modalP.textContent = text.body;
+    console.log("Open Modal");
+  }
+  modalVisible = !modalVisible;
+}
+
+/* ==========================================================================
+   Toggle Mobile Menu
+   ========================================================================== */
+function toggleMobileMenu() {
+  if (mobileMenuVisible) {
+    //close menu
+    nav.style.removeProperty("top");
+  } else {
+    //open menu
+    nav.style.top = "0px";
+  }
+  mobileMenuVisible = !mobileMenuVisible;
 }

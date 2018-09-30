@@ -13,6 +13,11 @@
 </head>
 
 <body>
+    <div id="burger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <!-- LEFT NAVIGATION BAR -->
     <nav>
         <div id="timeNav">
@@ -70,7 +75,8 @@
                         <canvas id="perf-chart">
 
                         </canvas>
-                        <p>50%</p>
+                        <p class="perf-value">50%</p>
+                        <p class="display-modal-button" data-type="perf">i</p>
                     </div>
                 </div>
             </div>
@@ -78,11 +84,13 @@
             <div id="keg-level" class="boxes">
                 <h2 class="box-header">KEG LEVEL</h2>
                 <canvas id="keg-level-chart"></canvas>
-                <p class="display-modal-button">i</p>
+                <p class="display-modal-button" data-type="keg">i</p>
             </div>
 
             <div id="storage" class="boxes">
+                <h2 class="box-header">STORAGE</h2>
                 <canvas id="storage-level-chart"></canvas>
+                <p class="display-modal-button" data-type="storage">i</p>
             </div>
         </div>
 
@@ -90,6 +98,7 @@
             <div id="modal-info">
                 <h2>Header</h2>
                 <p>Description...</p>
+                <button>CLOSE</button>
             </div>
         </div>
     </main>
