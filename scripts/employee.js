@@ -1,5 +1,8 @@
 "use strict";
 
+/* ==========================================================================
+   General
+   ========================================================================== */
 const name = document.querySelectorAll(".name");
 const status = document.querySelectorAll(".status");
 const nav = document.querySelector("nav");
@@ -38,6 +41,9 @@ function init() {
   burgerMenu.addEventListener("click", toggleMobileMenu);
 }
 
+/* ==========================================================================
+   Update Data
+   ========================================================================== */
 function updateData() {
   data = JSON.parse(FooBar.getData());
   //console.log(data);

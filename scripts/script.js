@@ -69,14 +69,7 @@ document.addEventListener("DOMContentLoaded", init);
 function init() {
   //Update the time in the navbar every 1s
   setInterval(() => {
-    const date = new Date();
-    const hours =
-      date.getHours() > 10 ? date.getHours() : "0" + date.getHours();
-    const min =
-      date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
-    const sec =
-      date.getSeconds() > 10 ? date.getSeconds() : "0" + date.getSeconds();
-    timeNav.textContent = hours + ":" + min + ":" + sec;
+    updateTime();
   }, 1000);
 
   //Get data and console log it
@@ -113,6 +106,7 @@ function init() {
   displayStorageLevelChart();
   updateStorageLevelData();
   updateStorageLevelChart();
+  updateTime();
 
   //Add event listener to Modal Window
   modalButton.forEach(btn => {
@@ -255,6 +249,8 @@ function displayPerfChart() {
   perfChart = new Chart(perfChartDOM, {
     // The type of chart we want to create
     type: "doughnut",
+    responsive: true,
+    maintainAspectRatio: false,
 
     // The data for our dataset
     data: {
@@ -286,9 +282,9 @@ function updatePerfChart() {
   } else {
     //update chart
     let status;
-    if (perf.avgPerf > 60) {
+    if (perf.avgPerf >= 60) {
       status = "good";
-    } else if (perf.avgPerf < 30) {
+    } else if (perf.avgPerf <= 30) {
       status = "bad";
     } else if (perf.avgPerf > 30 && perf.avgPerf < 60) {
       status = "okay";
@@ -404,9 +400,9 @@ function updateKegLevelChart() {
   let status;
 
   kegLevel.forEach(keg => {
-    if (keg.level > 1500) {
+    if (keg.level >= 1500) {
       status = "good";
-    } else if (keg.level < 500) {
+    } else if (keg.level <= 500) {
       status = "bad";
     } else if (keg.level > 500 && keg.level < 1500) {
       status = "okay";
@@ -525,9 +521,9 @@ function updateStorageLevelChart() {
   let status;
 
   storageLevel.forEach(storage => {
-    if (storage.level > 6) {
+    if (storage.level >= 6) {
       status = "good";
-    } else if (storage.level < 2) {
+    } else if (storage.level <= 2) {
       status = "bad";
     } else if (storage.level > 2 && storage.level < 6) {
       status = "okay";
@@ -562,22 +558,23 @@ function toggleModalWindow(e) {
       keg: {
         header: "KEG LEVEL",
         body:
-          "Keg level displays the amount of beer left in a keg. The unit is in cl."
+          "Keg level displays the amount of beer left in a keg. The unit is in cl.<br /><br />Abbreviations:<br />ELH : El Hefe<br />FTA : Fairy Tale Ale<br />HBL : Hollaback Lager<br />GTH : GitHop<br />HEA : Hoppily Ever After<br />MIT : Mowintime<br />R26 : Row 26<br />RCH : Ruined Childhood<br />SLR : Sleighride<br />SMP : Steampunk"
       },
       storage: {
         header: "STORAGE LEVEL",
-        body: "Storage level displays the amount of kegs in the storage room."
-      },
-      perf: {
-        header: "PERFORMANCE",
         body:
-          "The all around performance is calculated based on the needed time to serve the last 20 beers. An average time is calculated and compared to 10s/beer which would be considered 100%. All performance over 60% is considered as very good!"
+          "Storage level displays the amount of kegs in the storage room.<br /><br />Abbreviations:<br />ELH : El Hefe<br />FTA : Fairy Tale Ale<br />HBL : Hollaback Lager<br />GTH : GitHop<br />HEA : Hoppily Ever After<br />MIT : Mowintime<br />R26 : Row 26<br />RCH : Ruined Childhood<br />SLR : Sleighride<br />SMP : Steampunk"
+      },
+      topBox: {
+        header: "OVERVIEW",
+        body:
+          "QUEUE displays the amount of clients waiting in line.<br /><br />SERVING displays the amount of clients currently beeing served<br /><br />PERFORMANCE displays the all around performance which is calculated based on the needed time to serve the last 20 beers. An average time is calculated and compared to 10s/beer which would be considered 100%. All performance over 60% is considered as very good!"
       }
     }[type];
 
     modalWindow.style.top = "0px";
     modalH2.textContent = text.header;
-    modalP.textContent = text.body;
+    modalP.innerHTML = text.body;
     console.log("Open Modal");
   }
   modalVisible = !modalVisible;
@@ -595,4 +592,17 @@ function toggleMobileMenu() {
     nav.style.top = "0px";
   }
   mobileMenuVisible = !mobileMenuVisible;
+}
+
+/* ==========================================================================
+   Update the time clock in the nav
+   ========================================================================== */
+function updateTime() {
+  const date = new Date();
+  const hours = date.getHours() > 10 ? date.getHours() : "0" + date.getHours();
+  const min =
+    date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+  const sec =
+    date.getSeconds() > 10 ? date.getSeconds() : "0" + date.getSeconds();
+  timeNav.textContent = hours + ":" + min + ":" + sec;
 }
