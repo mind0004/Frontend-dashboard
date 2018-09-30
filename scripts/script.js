@@ -247,6 +247,7 @@ function updatePerfChart() {
 function displayKegLevelChart() {
   kegLevelChart = new Chart(kegLevelChartDOM, {
     type: "bar",
+    height: 400,
     // The data for our dataset
     data: {
       labels: [
@@ -274,6 +275,8 @@ function displayKegLevelChart() {
     // Configuration options go here
     options: {
       legend: false,
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {

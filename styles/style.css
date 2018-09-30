@@ -238,6 +238,32 @@ nav #logout p {
     100vh - var(--grid-space) - var(--grid-space) - var(--grid-space) -
       var(--top-box-height)
   );
+  position: relative;
+}
+#keg-level .box-header {
+  margin-left: 20px;
+}
+
+#keg-level #keg-level-chart {
+  height: calc(
+    100vh - var(--grid-space) - var(--grid-space) - var(--grid-space) -
+      var(--top-box-height) - 30%
+  ) !important;
+  width: 90% !important;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+#keg-level .display-modal-button {
+  padding: 2px 7px;
+  margin: 4px;
+  border: 1.5px solid grey;
+  border-radius: 50%;
+  font-family: serif;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
 }
 
 /* Storage
@@ -249,6 +275,32 @@ nav #logout p {
   );
 }
 
+/* Modal Window
+   ========================================================================== */
+#modal {
+  position: fixed;
+  background: rgba(5, 5, 5, 0.63);
+  min-height: 100vh;
+  width: calc(100vw - var(--left-nav-width));
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+#modal-info {
+  width: 60vmin;
+  height: 60vh;
+  background: white;
+  margin: 0 auto;
+  margin-top: 20vh;
+  border-radius: 5px;
+  padding: 20px;
+}
+#modal h2 {
+  font-weight: bold;
+}
+#modal p {
+  margin-top: 10px;
+}
 /* ==========================================================================
    Media Queries
    ========================================================================== */
