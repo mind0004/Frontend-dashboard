@@ -485,6 +485,10 @@ nav #logout p {
     padding: 10px 0px 0px 50px;
   }
 
+  #employee > h2 {
+    padding: 10px 0px 0px 50px;
+  }
+
   #employee-grid {
     width: 100vw;
     grid-template-columns: repeat(1, 1fr);
