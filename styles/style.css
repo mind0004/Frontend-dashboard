@@ -484,4 +484,18 @@ nav #logout p {
   #economics h2 {
     padding: 10px 0px 0px 50px;
   }
+
+  #employee-grid {
+    width: 100vw;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #employee-grid img {
+    width: 45%;
+  }
+
+  #employee-grid .boxes {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
