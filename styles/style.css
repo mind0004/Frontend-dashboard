@@ -387,6 +387,19 @@ nav #logout p {
 /* ==========================================================================
    Burger Menu
    ========================================================================== */
+#economics h2 {
+  padding: 20px 10px;
+}
+
+#economics .description {
+  width: 60vw;
+  margin: 0 auto;
+  margin-top: 40vh;
+}
+
+/* ==========================================================================
+   Burger Menu
+   ========================================================================== */
 #burger-menu {
   display: none;
   position: fixed;
@@ -467,5 +480,8 @@ nav #logout p {
   nav {
     top: -100vh;
     transition: top 0.7s;
+  }
+  #economics h2 {
+    padding: 10px 0px 0px 50px;
   }
 }
