@@ -22,9 +22,7 @@ document.addEventListener("DOMContentLoaded", init);
 function init() {
   //Update the time in the navbar every 1s
   setInterval(() => {
-    const date = new Date();
-    timeNav.textContent =
-      date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    updateTime();
   }, 1000);
 
   //Get data and console log it
@@ -37,6 +35,7 @@ function init() {
     displayData();
   }, updateInterval);
   displayData();
+  updateTime();
 
   burgerMenu.addEventListener("click", toggleMobileMenu);
 }
@@ -74,4 +73,14 @@ function toggleMobileMenu() {
     nav.style.top = "0px";
   }
   mobileMenuVisible = !mobileMenuVisible;
+}
+
+function updateTime() {
+  const date = new Date();
+  const hours = date.getHours() >= 10 ? date.getHours() : "0" + date.getHours();
+  const min =
+    date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
+  const sec =
+    date.getSeconds() >= 10 ? date.getSeconds() : "0" + date.getSeconds();
+  timeNav.textContent = hours + ":" + min + ":" + sec;
 }

@@ -599,10 +599,10 @@ function toggleMobileMenu() {
    ========================================================================== */
 function updateTime() {
   const date = new Date();
-  const hours = date.getHours() > 10 ? date.getHours() : "0" + date.getHours();
+  const hours = date.getHours() >= 10 ? date.getHours() : "0" + date.getHours();
   const min =
-    date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+    date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
   const sec =
-    date.getSeconds() > 10 ? date.getSeconds() : "0" + date.getSeconds();
+    date.getSeconds() >= 10 ? date.getSeconds() : "0" + date.getSeconds();
   timeNav.textContent = hours + ":" + min + ":" + sec;
 }
