@@ -51,6 +51,21 @@ nav #timeNav {
   text-align: center;
 }
 
+nav #logo {
+  width: 100%;
+  text-align: center;
+}
+
+nav #logo p {
+  margin: 60px 0px;
+  font-family: "Pacifico", cursive;
+  font-size: 40px;
+  color: #e06666;
+}
+nav #logo p span {
+  color: #e9e9e9;
+}
+
 nav #overviewNav,
 nav #economicsNav,
 nav #employeesNav,
@@ -416,6 +431,7 @@ nav #logout p {
   background: #4d4d4d;
   display: block;
   border-radius: 5px;
+  transition: background 0.3s;
 }
 
 /* ==========================================================================
@@ -426,14 +442,6 @@ nav #logout p {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (max-width: 576px) {
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (max-width: 768px) {
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -502,4 +510,28 @@ nav #logout p {
     width: 80%;
     margin: 0 auto;
   }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  nav #logo p {
+    margin: 30px 0px;
+    font-size: 30px;
+  }
+  nav #overviewNav,
+  nav #economicsNav,
+  nav #employeesNav,
+  nav #profile {
+    margin-top: 40px;
+  }
+  nav #logout p {
+    margin-top: 25px;
+  }
+  nav #settings {
+    margin-top: 20px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
 }

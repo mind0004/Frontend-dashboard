@@ -32,6 +32,7 @@ let modalVisible = false;
 
 //*** Mobile Menu (Burger Menu)
 const burgerMenu = document.querySelector("#burger-menu");
+const burgerMenuSpan = document.querySelectorAll("#burger-menu span");
 let mobileMenuVisible = false;
 
 //*** Variables
@@ -581,15 +582,21 @@ function toggleModalWindow(e) {
 }
 
 /* ==========================================================================
-   Toggle Mobile Menu
+   Toggle Mobile Menu on click Burger Menu
    ========================================================================== */
 function toggleMobileMenu() {
   if (mobileMenuVisible) {
     //close menu
     nav.style.removeProperty("top");
+    burgerMenuSpan.forEach(span => {
+      span.style.removeProperty("background");
+    });
   } else {
     //open menu
     nav.style.top = "0px";
+    burgerMenuSpan.forEach(span => {
+      span.style.background = "#e9e9e9";
+    });
   }
   mobileMenuVisible = !mobileMenuVisible;
 }
